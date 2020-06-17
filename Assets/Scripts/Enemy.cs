@@ -5,24 +5,22 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("Movement")]
-    [Tooltip("Movement speed of the Enemy")]
-    [Range(0f, 10f)]
+    [Tooltip("Movement speed of the Enemy"), Range(0f, 10f)]
     public int moveSpeed;
 
     [Header("Player Detection")]
-    [Tooltip("The minimum range a player needs to be in before it gets 'detected' by the 'AI'.")]
+    [Tooltip("The closest the player needs to be from the enemy to be detected.")]
     public float maxLength;
 
-    private GameObject player;
+    [Tooltip("The closest the player needs to be from the enemy to be damaged.")]
+    public float minLength;
 
-    private void Awake()
-    {
-        player = GameObject.Find("Player");
-    }
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -39,6 +37,11 @@ public class Enemy : MonoBehaviour
             Vector3 _normalDiff = _diff.normalized;
 
             transform.position -= _normalDiff * Time.deltaTime * moveSpeed;
+        }
+
+        if (length <= minLength)
+        {
+
         }
     }
 }

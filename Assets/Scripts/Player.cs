@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [Header("Player Movement")]
 
-    [SerializeField]
-    [Range(0f, 100f)]
+    public int GetPlayerHealth => playerHealth;
+
+    public static Player GetPlayerInstance() => playerSingleton;
+
+
+    [Header("Player Movement")]
+    [SerializeField, Range(0f, 100f)]
     private float moveSpeed = 0;
 
-    [SerializeField]
-    [Range(0f, 50f)]
+    [SerializeField, Range(0f, 50f)]
     private float moveSpeedAddOnShift = 0;
 
     [SerializeField]
@@ -22,24 +25,22 @@ public class Player : MonoBehaviour
 
     [Header("Camera Movement")]
 
-    [SerializeField]
-    [Range(0, 10)]
+    [SerializeField, Range(0, 10)]
     private int mouseSensitivity = 10;
 
-    [SerializeField]
-    private Transform playerCamera;
+    [Header("Other")]
 
-    public static Player GetPlayer()
-    {
-        return playerSingleton;
-    }
+    [Tooltip("Player Health in %"), Range(0, 100)]
+    public int playerHealth = 100;
 
     static Player playerSingleton = null;
 
     private float oldMoveSpeed;
     private Rigidbody rb;
     private bool isShiftClicked = false;
+    private bool moving;
     private float xRotation = 0f;
+    private Transform playerCamera;
 
     private void Awake()
     {
@@ -54,20 +55,24 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         oldMoveSpeed = moveSpeed;
-        rb = GetComponent<Rigidbody>();
         mouseSensitivity *= 100;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
+        playerCamera = GameObject.Find("Main Camera").transform;
     }
 
     void Update()
     {
+        // Player and Camera rotation
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
+        // Prevent the player to go 360 degrees with the camera on the vertical axis.
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
@@ -85,12 +90,34 @@ public class Player : MonoBehaviour
 
     private void PlayerMove()
     {
-        float moveHorizontal = Input.GetAxis(horizontalAxis);
-        float moveVertical = Input.GetAxis(verticalAxis);
 
-        Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
+        // Checks if the player is pressing the move buttons.
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
+        {
+            moving = true;
+        }
+        else
+        {
+            moving = false;
+        }
 
-        rb.AddForce(move * moveSpeed);
+        // If the player presses the move buttons, move the player in game.
+        if (moving)
+        {
+            float moveHorizontal = Input.GetAxis(horizontalAxis);
+            float moveVertical = Input.GetAxis(verticalAxis);
+
+            Vector3 move = transform.right * moveHorizontal + transform.forward * moveVertical;
+
+            move = move.normalized;
+
+            rb.AddForce(move * moveSpeed);
+        }
+        // If not, set the velocity to zero to prevent the player to slide.
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
     private void PlayerRun()
