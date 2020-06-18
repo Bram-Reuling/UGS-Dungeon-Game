@@ -36,7 +36,9 @@ public class Enemy : MonoBehaviour
 
     public int damage = 5;
 
-    public int health = 10;
+    public float health = 10;
+
+    public ParticleSystem explosion;
 
     // Start is called before the first frame update
     void Start()
@@ -61,17 +63,27 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage (int amount)
+    public void TakeDamage (float amount)
     {
         health -= amount;
+
         if (health <= 0)
         {
+
+            player.gameObject.GetComponent<Player>().AddXP((int)Random.Range(10, 50));
+
             Die();
         }
     }
 
     void Die()
     {
+        //Instantiate(explosion, transform.position, transform.rotation);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }

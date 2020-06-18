@@ -18,6 +18,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.XPath;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -26,6 +27,26 @@ public class Player : MonoBehaviour
     public int Health
     {
         get => playerHealth;
+    }
+
+    public int Level
+    {
+        get => level;
+    }
+
+    public int XP
+    {
+        get => xp;
+    }
+
+    public int XPForLevelUp
+    {
+        get => xpForLevelUp;
+    }
+
+    public Vector3 Position
+    {
+        get => transform.position;
     }
 
     public static Player GetPlayerInstance() => playerSingleton;
@@ -66,6 +87,10 @@ public class Player : MonoBehaviour
 
     public float timeThresholdForDamage = .5f;
 
+    public int xp = 0;
+    public int level = 0;
+    public int xpForLevelUp = 10;
+
     private void Awake()
     {
         if (playerSingleton == null)
@@ -104,6 +129,13 @@ public class Player : MonoBehaviour
 
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
+
+        if (xp >= xpForLevelUp)
+        {
+            xp -= xpForLevelUp;
+            level++;
+            xpForLevelUp += (int)UnityEngine.Random.Range(10, 20);
+        }
     }
 
     // Used for physics based movement.
@@ -116,7 +148,7 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-
+        Debug.LogError("Function not implemented");
     }
 
     private void PlayerMove()
@@ -192,6 +224,28 @@ public class Player : MonoBehaviour
                 collisionTimer = 0f;
             }
         }
+    }
+
+    public void AddXP(int _xp)
+    {
+        xp = _xp;
+    }
+
+    public void SavePlayer()
+    {
+        SaveAndLoad.Save(this);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveAndLoad.Load();
+
+        playerHealth = data.health;
+        xp = data.xp;
+        level = data.level;
+        xpForLevelUp = data.xpForLevelUp;
+
+        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
     }
 
     private void OnDestroy()
