@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
 
     public int damage = 5;
 
+    public int health = 10;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,5 +59,19 @@ public class Enemy : MonoBehaviour
 
             transform.position -= _normalDiff * Time.deltaTime * moveSpeed;
         }
+    }
+
+    public void TakeDamage (int amount)
+    {
+        health -= amount;
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }
