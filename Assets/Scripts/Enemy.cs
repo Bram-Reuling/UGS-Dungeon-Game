@@ -1,6 +1,22 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- Enemy.cs -----------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for enemy behavior, such as moving
+/// attacking and enemy death.
+/// 
+/// Player.cs contains the following classes (made by me, not
+/// made by the guys of unity):
+/// - 
+/// 
+//////////////////////////////////////////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -16,6 +32,9 @@ public class Enemy : MonoBehaviour
     public float minLength;
 
     private GameObject player;
+    private float length;
+
+    public int damage = 5;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +47,7 @@ public class Enemy : MonoBehaviour
     {
 
         Vector3 _diff = transform.position - player.transform.position;
-        float length = _diff.magnitude;
+        length = _diff.magnitude;
 
         if (length <= maxLength)
         {
@@ -37,11 +56,6 @@ public class Enemy : MonoBehaviour
             Vector3 _normalDiff = _diff.normalized;
 
             transform.position -= _normalDiff * Time.deltaTime * moveSpeed;
-        }
-
-        if (length <= minLength)
-        {
-
         }
     }
 }

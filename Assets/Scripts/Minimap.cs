@@ -1,4 +1,19 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- Minimap.cs ----------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for the minimap. The minimap rotates and
+/// moves with the player.
+/// 
+/// Minimap.cs contains the following classes (made by me, not
+/// made by the guys of unity):
+/// - 
+/// 
+//////////////////////////////////////////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

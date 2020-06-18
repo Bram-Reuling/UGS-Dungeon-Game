@@ -1056,6 +1056,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6473039280070441929, guid: e84a03ee4bad2c544aaeb0a0659ebf6f,
+        type: 3}
+      propertyPath: minLength
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6473039280070441930, guid: e84a03ee4bad2c544aaeb0a0659ebf6f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3364,6 +3369,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905326454}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1928681506 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6550197814633968472, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6550197815034117163}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1990454891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6550197814184776256, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
@@ -3853,7 +3864,7 @@ PrefabInstance:
     - target: {fileID: 3036429443788456224, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
       propertyPath: m_Name
-      value: Minimap
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 3036429443788456227, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
@@ -3915,6 +3926,41 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1751764853}
+    - target: {fileID: 4427434848461767145, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1928681506}
+    - target: {fileID: 6943059478710311616, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943059478710311616, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 49.33142
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943059478710311616, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000011444
+      objectReference: {fileID: 0}
+    - target: {fileID: 6943059478710311616, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 460.2909
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726657165224927871, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726657165224927871, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3, type: 3}
 --- !u!1001 &3338168465110719160
@@ -4018,6 +4064,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6550197814184776269, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6550197814633968467, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
         type: 3}
       propertyPath: m_Drag
@@ -4031,6 +4082,11 @@ PrefabInstance:
     - target: {fileID: 6550197814633968472, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
         type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550197814633968472, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+        type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6550197814633968477, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
@@ -4067,6 +4123,11 @@ PrefabInstance:
         type: 3}
       propertyPath: moveSpeedMultiplier
       value: 0.206
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550197814633968477, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+        type: 3}
+      propertyPath: timeThresholdForDamage
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 6550197814633968478, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
         type: 3}

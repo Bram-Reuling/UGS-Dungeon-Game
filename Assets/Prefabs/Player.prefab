@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6550197814184776257}
   - component: {fileID: 6550197814184776258}
   - component: {fileID: 6550197814184776268}
-  - component: {fileID: 6550197814184776263}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -116,20 +115,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &6550197814184776263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6550197814184776269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18b4b51a4e49a1746bd14b8f6a204a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSens: 300
-  player: {fileID: 6550197814633968478}
 --- !u!1 &6550197814633968472
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,11 +125,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6550197814633968478}
   - component: {fileID: 6550197814633968477}
+  - component: {fileID: 8750289302788967969}
   - component: {fileID: 6550197814633968479}
   - component: {fileID: 6550197814633968467}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -181,6 +167,23 @@ MonoBehaviour:
   moveSpeedAddOnShift: 39.3
   horizontalAxis: Horizontal
   verticalAxis: Vertical
+  mouseSensitivity: 10
+  playerHealth: 100
+  timeThresholdForDamage: 1
+--- !u!114 &8750289302788967969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6550197814633968472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ded55c1449be3ce4e858194bb0b9e77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  ticks: 
 --- !u!136 &6550197814633968479
 CapsuleCollider:
   m_ObjectHideFlags: 0

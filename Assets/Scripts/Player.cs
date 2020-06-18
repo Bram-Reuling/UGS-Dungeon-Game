@@ -1,4 +1,21 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- Player.cs -----------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for player behavior, such as moving
+/// shooting, player death and camera movement.
+/// 
+/// Player.cs contains the following classes (made by me, not
+/// made by the guys of unity):
+/// - Die()
+/// - PlayerMove()
+/// - PlayerRun()
+/// 
+//////////////////////////////////////////////////////////////////
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +23,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public int GetPlayerHealth => playerHealth;
+    public int Health
+    {
+        get => playerHealth;
+    }
 
     public static Player GetPlayerInstance() => playerSingleton;
 
@@ -33,7 +53,7 @@ public class Player : MonoBehaviour
     [Tooltip("Player Health in %"), Range(0, 100)]
     public int playerHealth = 100;
 
-    static Player playerSingleton = null;
+    private static Player playerSingleton = null;
 
     private float oldMoveSpeed;
     private Rigidbody rb;
@@ -41,6 +61,10 @@ public class Player : MonoBehaviour
     private bool moving;
     private float xRotation = 0f;
     private Transform playerCamera;
+
+    private float collisionTimer;
+
+    public float timeThresholdForDamage = .5f;
 
     private void Awake()
     {
@@ -62,7 +86,9 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
         playerCamera = GameObject.Find("Main Camera").transform;
+
     }
 
     void Update()
@@ -86,6 +112,11 @@ public class Player : MonoBehaviour
         PlayerRun();
 
         PlayerMove();
+    }
+
+    private void Die()
+    {
+
     }
 
     private void PlayerMove()
@@ -132,6 +163,34 @@ public class Player : MonoBehaviour
         {
             moveSpeed = oldMoveSpeed;
             isShiftClicked = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            // Resetting the timer
+            collisionTimer = 0f;
+
+            playerHealth -= 5;
+        }
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (collisionTimer < timeThresholdForDamage)
+            {
+                collisionTimer += Time.deltaTime;
+            }
+            else
+            {
+                playerHealth -= 5;
+
+                collisionTimer = 0f;
+            }
         }
     }
 
