@@ -1,14 +1,22 @@
-﻿[System.Serializable]
-public class PlayerData
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class SceneData
 {
+    // Player Data
     public int health;
     public int xp;
     public int level;
     public int xpForLevelUp;
     public float[] position;
 
-    public PlayerData (Player player)
+    // Other Data
+    public string sceneName;
+
+    public SceneData(Player player, Scene scene)
     {
+        // Player
         health = player.Health;
         xp = player.XP;
         level = player.Level;
@@ -18,5 +26,8 @@ public class PlayerData
         position[0] = player.Position.x;
         position[1] = player.Position.y;
         position[2] = player.Position.z;
+
+        // Other
+        sceneName = scene.name;
     }
 }

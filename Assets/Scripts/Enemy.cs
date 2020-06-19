@@ -36,14 +36,17 @@ public class Enemy : MonoBehaviour
 
     public int damage = 5;
 
-    public float health = 10;
+    public int health = 10;
 
     public ParticleSystem explosion;
+
+    private bool sawPlayer = false;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        health += (int)Mathf.Floor(player.GetComponent<Player>().level * 1.5f);
     }
 
     // Update is called once per frame
@@ -55,6 +58,11 @@ public class Enemy : MonoBehaviour
 
         if (length <= maxLength)
         {
+            sawPlayer = true;
+        }
+
+        if (sawPlayer)
+        {
             transform.LookAt(player.transform.position);
 
             Vector3 _normalDiff = _diff.normalized;
@@ -63,14 +71,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage (float amount)
+    public void TakeDamage (int amount)
     {
         health -= amount;
 
         if (health <= 0)
         {
 
-            player.gameObject.GetComponent<Player>().AddXP((int)Random.Range(10, 50));
+            player.gameObject.GetComponent<Player>().AddXP((int)Random.Range(5, 10));
 
             Die();
         }

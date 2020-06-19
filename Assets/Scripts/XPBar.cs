@@ -22,7 +22,7 @@ public class XPBar : MonoBehaviour
     void Update()
     {
         slider.maxValue = player.GetComponent<Player>().xpForLevelUp;
-        slider.value = player.GetComponent<Player>().xp;
+        slider.value = player.GetComponent<Player>().currentXP;
         text.text = "Level: "+player.GetComponent<Player>().Level;
     }
 }
