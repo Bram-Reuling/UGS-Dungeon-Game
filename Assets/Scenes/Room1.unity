@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 10abff2995e0f0b4190e55144e309d90,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1147,6 +1147,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 926081027}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &981761438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6550197814633968472, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6550197815034117163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &981761442 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6550197814633968477, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6550197815034117163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 981761438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579d0d7fda620e648be7268a1ee57bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &981923371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2529,6 +2547,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3015502951915325834, guid: 83a03c4f936ae9847b0629a480bda49f,
     type: 3}
   m_PrefabInstance: {fileID: 1502939981}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1619668495 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6550197814184776257, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6550197815034117163}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1643162479
 PrefabInstance:
@@ -4253,8 +4277,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5200436515834317047, guid: 49de973cacb62b64081691d5a4b3c4c8,
-        type: 3}
+      objectReference: {fileID: 981761442}
     - target: {fileID: 516825601931083400, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4304,8 +4327,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 5200436515834317047, guid: 49de973cacb62b64081691d5a4b3c4c8,
-        type: 3}
+      objectReference: {fileID: 981761442}
     - target: {fileID: 1923178887755601032, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4400,8 +4422,7 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5200436515834317044, guid: 49de973cacb62b64081691d5a4b3c4c8,
-        type: 3}
+      objectReference: {fileID: 6550197815034117164}
     - target: {fileID: 3282092453962294776, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
       propertyPath: m_Value
@@ -4426,14 +4447,12 @@ PrefabInstance:
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5200436515834317042, guid: 49de973cacb62b64081691d5a4b3c4c8,
-        type: 3}
+      objectReference: {fileID: 981761438}
     - target: {fileID: 4557057256318802079, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 5200436515834317042, guid: 49de973cacb62b64081691d5a4b3c4c8,
-        type: 3}
+      objectReference: {fileID: 981761438}
     - target: {fileID: 5133393795722114027, guid: 4c7e4b53dbc1e0b43bb7a928a4da26c3,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4683,8 +4702,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mainCamera
       value: 
-      objectReference: {fileID: 5200436516275120619, guid: 49de973cacb62b64081691d5a4b3c4c8,
-        type: 3}
+      objectReference: {fileID: 1619668495}
     - target: {fileID: 6550197814184776269, guid: 85d8f9494f446d34eaf3d787ed4f17d3,
         type: 3}
       propertyPath: m_IsActive
