@@ -152,6 +152,19 @@ public class Player : MonoBehaviour
         PlayerRun();
 
         PlayerMove();
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+        {
+            //Debug.Log(hit.transform.tag);
+
+            if (hit.transform.tag == "Finish")
+            {
+                Cursor.lockState = CursorLockMode.Confined;
+                sceneLoader.ChangeScene("LevelComplete");
+            }
+        }
     }
 
     private void Die()

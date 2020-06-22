@@ -16,6 +16,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     [Header("Movement")]
     [Tooltip("Movement speed of the Enemy"), Range(0f, 10f)]
     public int moveSpeed;
+    public int runSpeed;
 
     [Header("Player Detection")]
     [Tooltip("The closest the player needs to be from the enemy to be detected.")]
@@ -42,6 +44,20 @@ public class Enemy : MonoBehaviour
 
     private bool sawPlayer = false;
 
+    private enum State { Idle, Chasing }
+    private State state;
+
+    [SerializeField]
+    private List<Transform> _wayPoints = new List<Transform>();
+
+    private NavMeshAgent _agent;
+    private int _currentWayPoint = 0;
+
+    private void Awake()
+    {
+        _agent = GetComponent<NavMeshAgent>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,16 +74,45 @@ public class Enemy : MonoBehaviour
 
         if (length <= maxLength)
         {
-            sawPlayer = true;
+            //sawPlayer = true;
+            state = State.Chasing;
+        }
+        else
+        {
+            state = State.Idle;
         }
 
-        if (sawPlayer)
+        if (state == State.Chasing)
         {
-            transform.LookAt(player.transform.position);
+            //transform.LookAt(player.transform.position);
 
-            Vector3 _normalDiff = _diff.normalized;
+            //Vector3 _normalDiff = _diff.normalized;
 
-            transform.position -= _normalDiff * Time.deltaTime * moveSpeed;
+            //transform.position -= _normalDiff * Time.deltaTime * moveSpeed;
+
+            _agent.speed = runSpeed;
+            _agent.destination = player.transform.position;
+        }
+        
+        if (state == State.Idle)
+        {
+            _agent.speed = moveSpeed;
+
+            if (_currentWayPoint < _wayPoints.Count)
+            {
+                if (Vector3.Distance(transform.position, _wayPoints[_currentWayPoint].position) > 1.5f)
+                {
+                    _agent.destination = _wayPoints[_currentWayPoint].position;
+                }
+                else
+                {
+                    _currentWayPoint++;
+                }
+            }
+            else
+            {
+                _currentWayPoint = 0;
+            }
         }
     }
 
