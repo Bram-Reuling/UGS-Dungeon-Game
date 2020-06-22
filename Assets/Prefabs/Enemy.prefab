@@ -414,10 +414,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  maxLength: 20
+  maxLength: 100
   minLength: 0
   damage: 5
-  health: 50
+  health: 10
   explosion: {fileID: 0}
 --- !u!65 &7411313025783299392
 BoxCollider:

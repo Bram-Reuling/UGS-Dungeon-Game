@@ -20,6 +20,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.XPath;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour
 
     public int XP
     {
-        get => xp;
+        get => currentXP;
     }
 
     public int XPForLevelUp
@@ -87,9 +88,13 @@ public class Player : MonoBehaviour
 
     public float timeThresholdForDamage = .5f;
 
-    public int xp = 0;
-    public int level = 0;
-    public int xpForLevelUp = 10;
+    public int currentXP = 0;
+    public int level = 1;
+    public int xpForLevelUp = 100;
+    public int xpBase = 100;
+    public float xpIncrease = 1.15f;
+
+    public SceneLoader sceneLoader;
 
     private void Awake()
     {
@@ -114,6 +119,11 @@ public class Player : MonoBehaviour
 
         playerCamera = GameObject.Find("Main Camera").transform;
 
+        if (DataHandler.data != null)
+        {
+            LoadPlayer(DataHandler.data);
+        }
+
     }
 
     void Update()
@@ -130,11 +140,9 @@ public class Player : MonoBehaviour
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(Vector3.up * mouseX);
 
-        if (xp >= xpForLevelUp)
+        if (playerHealth <= 0)
         {
-            xp -= xpForLevelUp;
-            level++;
-            xpForLevelUp += (int)UnityEngine.Random.Range(10, 20);
+            Die();
         }
     }
 
@@ -148,7 +156,8 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        Debug.LogError("Function not implemented");
+        Cursor.lockState = CursorLockMode.Confined;
+        sceneLoader.ChangeScene("DeathScreen");
     }
 
     private void PlayerMove()
@@ -228,24 +237,33 @@ public class Player : MonoBehaviour
 
     public void AddXP(int _xp)
     {
-        xp = _xp;
+        currentXP += _xp;
+
+        if (currentXP >= xpForLevelUp)
+        {
+            LevelUp();
+        }
+    }
+
+    public void LevelUp()
+    {
+        currentXP -= xpForLevelUp;
+        level++;
+        float t = Mathf.Pow(xpIncrease, level);
+        xpForLevelUp = (int)Mathf.Floor(xpBase * t);
     }
 
     public void SavePlayer()
     {
-        SaveAndLoad.Save(this);
+        SaveAndLoad.SavePlayer(this);
     }
 
-    public void LoadPlayer()
+    public void LoadPlayer(SceneData data)
     {
-        PlayerData data = SaveAndLoad.Load();
-
         playerHealth = data.health;
-        xp = data.xp;
+        currentXP = data.xp;
         level = data.level;
         xpForLevelUp = data.xpForLevelUp;
-
-        transform.position = new Vector3(data.position[0], data.position[1], data.position[2]);
     }
 
     private void OnDestroy()
