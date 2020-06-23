@@ -29,6 +29,7 @@ public class GameUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && !gameOnPause && !buttonPressed)
         {
             Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             pauseMenu.SetActive(true);
             gameUI.SetActive(false);
             Time.timeScale = 0;
@@ -39,6 +40,7 @@ public class GameUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && gameOnPause && !buttonPressed)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             pauseMenu.SetActive(false);
             gameUI.SetActive(true);
             Time.timeScale = 1;

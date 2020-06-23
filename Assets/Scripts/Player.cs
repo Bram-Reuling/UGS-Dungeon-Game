@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         oldMoveSpeed = moveSpeed;
         mouseSensitivity *= 100;
     }
@@ -160,6 +161,7 @@ public class Player : MonoBehaviour
             {
                 game.SaveGame();
                 Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
                 DataHandler.levelPlayer = Level;
                 DataHandler.healthPlayer = Health;
                 sceneLoader.ChangeScene("LevelComplete");
@@ -170,6 +172,7 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         sceneLoader.ChangeScene("DeathScreen");
     }
 

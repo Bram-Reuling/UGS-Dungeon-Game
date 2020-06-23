@@ -58,55 +58,75 @@ public class Tutorial : MonoBehaviour
 
     private void StateManager()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && state == State.Welcome && !keyIsPressed && welcomeActive)
+        if (state == State.Welcome)
         {
-            keyIsPressed = true;
-            state = State.Goal;
-            welcomeActive = false;
+            if (Input.GetKeyDown(KeyCode.Return) && !keyIsPressed && welcomeActive)
+            {
+                keyIsPressed = true;
+                state = State.Goal;
+                welcomeActive = false;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) && state == State.Goal && !keyIsPressed && goalActive)
+        if (state == State.Goal)
         {
-            keyIsPressed = true;
-            state = State.WalkAndLook;
-            Time.timeScale = 1;
-            goalActive = false;
+            if (Input.GetKeyDown(KeyCode.Return) && !keyIsPressed && goalActive)
+            {
+                keyIsPressed = true;
+                state = State.WalkAndLook;
+                Time.timeScale = 1;
+                goalActive = false;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.W) ||
+        if (state == State.WalkAndLook)
+        {
+            if (Input.GetKeyDown(KeyCode.W) ||
             Input.GetKeyDown(KeyCode.A) ||
             Input.GetKeyDown(KeyCode.S) ||
             Input.GetKeyDown(KeyCode.D) &&
-            state == State.WalkAndLook &&
             walkActive)
-        {
-            state = State.Run;
-            walkActive = false;
+            {
+                state = State.Run;
+                walkActive = false;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && state == State.Run && runActive)
+        if (state == State.Run)
         {
-            state = State.Shoot;
-            runActive = false;
+            if (Input.GetKeyDown(KeyCode.LeftShift) && runActive)
+            {
+                state = State.Shoot;
+                runActive = false;
+            }
         }
 
-        if (Input.GetButton("Fire1") && state == State.Shoot && shootActive)
+        if (state == State.Shoot)
         {
-            state = State.HPAndLevel;
-            shootActive = false;
+            if (Input.GetButton("Fire1") && shootActive)
+            {
+                state = State.HPAndLevel;
+                shootActive = false;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) && state == State.HPAndLevel && !keyIsPressed && hpActive)
+        if (state == State.HPAndLevel)
         {
-            keyIsPressed = true;
-            state = State.Done;
-            hpActive = false;
+            if (Input.GetKeyDown(KeyCode.Return) && !keyIsPressed && hpActive)
+            {
+                keyIsPressed = true;
+                state = State.Done;
+                hpActive = false;
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) && state == State.Done && !keyIsPressed && doneActive)
+        if (state == State.Done)
         {
-            doneActive = false;
-            sceneLoader.ChangeScene("Room2");
+            if (Input.GetKeyDown(KeyCode.Return) && !keyIsPressed && doneActive)
+            {
+                doneActive = false;
+                sceneLoader.ChangeScene("Room2");
+            }
         }
     }
 
