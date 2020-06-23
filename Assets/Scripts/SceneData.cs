@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- SceneData.cs ------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for storing the current scene data
+/// 
+/// SceneData.cs contains the following classes:
+/// - NONE
+/// 
+//////////////////////////////////////////////////////////////////
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [System.Serializable]

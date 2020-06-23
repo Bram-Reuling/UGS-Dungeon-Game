@@ -1,5 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- SceneLoader.cs ------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for loading scenes and quiting the game.
+/// 
+/// SaveAndLoad.cs contains the following classes:
+/// - NewGame()
+/// - ChangeScene()
+/// - QuitGame()
+/// 
+//////////////////////////////////////////////////////////////////
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,7 +22,6 @@ public class SceneLoader : MonoBehaviour
         DataHandler.data = null;
         SceneManager.LoadScene(sceneIndex);
         Time.timeScale = 1;
-        // After loading the scene, save it.
     }
 
     public void NewGame(string sceneName)

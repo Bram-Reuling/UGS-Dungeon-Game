@@ -1,33 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using UnityEditor;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- Gun.cs -----------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for shooting the gun.
+/// 
+/// Gun.cs contains the following classes:
+/// - Fire()
+/// 
+//////////////////////////////////////////////////////////////////
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
 
-    public int damage = 10;
-    public float maxRange = 100f;
+    [SerializeField]
+    private int damage = 10;
+    [SerializeField]
+    private float maxRange = 100f;
 
-    public Camera mainCamera;
-    public Transform gunBarrel;
-    public GameObject bulletPrefab;
+    [SerializeField]
+    private Camera mainCamera;
+    [SerializeField]
+    private Transform gunBarrel;
 
-    public ParticleSystem flash;
-
-    private void Awake()
-    {
-    }
+    [SerializeField]
+    private ParticleSystem flash;
+    [SerializeField]
+    private AudioSource audioShoot;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.timeScale != 0)
+        if (Input.GetButtonDown("Fire1") && Time.timeScale != 0 && !audioShoot.isPlaying)
         {
             Fire();
+            audioShoot.Play();
         }
-
     }
 
     private void Fire()
@@ -38,8 +48,6 @@ public class Gun : MonoBehaviour
 
         if (Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out hit, maxRange))
         {
-            //Debug.Log(hit.transform.name);
-
             Enemy enemy = hit.transform.GetComponent<Enemy>();
             if (enemy != null)
             {

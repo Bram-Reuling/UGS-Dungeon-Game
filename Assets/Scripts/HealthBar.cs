@@ -1,26 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- HealthBar.cs -------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for showing and updating the health bar
+/// for the player according to the current health.
+/// 
+/// HealthBar.cs contains the following classes:
+/// - NONE
+/// 
+//////////////////////////////////////////////////////////////////
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Slider))]
 public class HealthBar : MonoBehaviour
 {
 
-    public GameObject player;
-    public Slider slider;
-    public TextMeshProUGUI text;
+    [SerializeField]
+    private Player player;
+    private Slider slider;
+
+    [SerializeField]
+    private TextMeshProUGUI text;
+
+    private void Awake()
+    {
+        slider = GetComponent<Slider>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        slider = GetComponent<Slider>();
+        if (player == null)
+        {
+            this.enabled = false;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        slider.value = player.GetComponent<Player>().Health;
-        text.text = player.GetComponent<Player>().Health.ToString() + " / " + slider.maxValue + " HP";
+        slider.value = player.Health;
+        text.text = player.Health.ToString() + " / " + slider.maxValue + " HP";
     }
 }

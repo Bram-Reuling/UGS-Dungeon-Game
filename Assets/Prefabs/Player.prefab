@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6550197814633968478}
   - component: {fileID: 6550197814633968477}
-  - component: {fileID: 8750289302788967969}
   - component: {fileID: 6550197814633968479}
   - component: {fileID: 6550197814633968467}
   m_Layer: 0
@@ -55,23 +54,13 @@ MonoBehaviour:
   mouseSensitivity: 10
   playerHealth: 100
   timeThresholdForDamage: 1
-  xp: 0
+  currentXP: 0
   level: 0
   xpForLevelUp: 10
---- !u!114 &8750289302788967969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6550197814633968472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ded55c1449be3ce4e858194bb0b9e77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  ticks: 
+  xpBase: 100
+  xpIncrease: 1.15
+  sceneLoader: {fileID: 0}
+  game: {fileID: 0}
 --- !u!136 &6550197814633968479
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e7a063df41f42408783674112ba1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 6473039280070441934}
+  enemy: {fileID: 6473039280070441929}
   slider: {fileID: 2122157086818908400}
   text: {fileID: 5111561531714871521}
 --- !u!1 &4177628029624383992
@@ -419,8 +419,8 @@ MonoBehaviour:
   maxLength: 20
   minLength: 0
   damage: 5
-  health: 50
-  explosion: {fileID: 0}
+  health: 20
+  player: {fileID: 0}
   _wayPoints: []
 --- !u!65 &7411313025783299392
 BoxCollider:

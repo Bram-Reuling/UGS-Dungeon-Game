@@ -1,16 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- XPBar.cs ------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for loading scenes and quiting the game.
+/// 
+/// XPBar.cs contains the following classes:
+/// - NewGame()
+/// - ChangeScene()
+/// - QuitGame()
+/// 
+//////////////////////////////////////////////////////////////////
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Slider))]
 public class XPBar : MonoBehaviour
 {
+    [SerializeField]
+    private Player player;
+    private Slider slider;
 
-    public GameObject player;
-    public Slider slider;
-    public TextMeshProUGUI text;
+    [SerializeField]
+    private TextMeshProUGUI text;
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +35,8 @@ public class XPBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        slider.maxValue = player.GetComponent<Player>().xpForLevelUp;
-        slider.value = player.GetComponent<Player>().currentXP;
-        text.text = "Level: "+player.GetComponent<Player>().Level;
+        slider.maxValue = player.XPForLevelUp;
+        slider.value = player.XP;
+        text.text = "Level: "+player.Level;
     }
 }

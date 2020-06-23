@@ -1,27 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- HealthBarEnemy.cs -------------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for showing and updating the health bar
+/// for the enemy according to the current health.
+/// 
+/// HealthBarEnemy.cs contains the following classes:
+/// - NONE
+/// 
+//////////////////////////////////////////////////////////////////
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Slider))]
 public class HealthBarEnemy : MonoBehaviour
 {
+    [SerializeField]
+    private Enemy enemy;
+    private Slider slider;
 
-    public GameObject enemy;
-    public Slider slider;
-    public TextMeshProUGUI text;
+    [SerializeField]
+    private TextMeshProUGUI text;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
-        slider.maxValue = enemy.GetComponent<Enemy>().health;
+    }
+
+    private void Start()
+    {
+        if (enemy != null)
+        {
+            slider.maxValue = enemy.Health;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        slider.value = enemy.GetComponent<Enemy>().health;
-        text.text = enemy.GetComponent<Enemy>().health.ToString() + " / " + slider.maxValue + " HP";
+        slider.value = enemy.Health;
+        text.text = enemy.Health.ToString() + " / " + slider.maxValue + " HP";
     }
 }

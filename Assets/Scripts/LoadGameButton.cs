@@ -1,5 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//////////////////////////////////////////////////////////////////
+///
+/// ---------------------- LoadGameButton.cs ---------------------
+/// 
+/// Made by: Bram Reuling
+/// 
+/// Description: Script for showing the Load Game button if there
+/// is any previous game data.
+/// 
+/// LoadGameButton.cs contains the following classes:
+/// - NONE
+/// 
+//////////////////////////////////////////////////////////////////
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +18,7 @@ public class LoadGameButton : MonoBehaviour
 {
     private Button button;
 
-    private void Start()
+    private void Awake()
     {
         button = GetComponent<Button>();
     }

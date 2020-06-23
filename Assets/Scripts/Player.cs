@@ -16,11 +16,7 @@
 //////////////////////////////////////////////////////////////////
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.XPath;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -95,6 +91,7 @@ public class Player : MonoBehaviour
     public float xpIncrease = 1.15f;
 
     public SceneLoader sceneLoader;
+    public Game game;
 
     private void Awake()
     {
@@ -161,7 +158,10 @@ public class Player : MonoBehaviour
 
             if (hit.transform.tag == "Finish")
             {
+                game.SaveGame();
                 Cursor.lockState = CursorLockMode.Confined;
+                DataHandler.levelPlayer = Level;
+                DataHandler.healthPlayer = Health;
                 sceneLoader.ChangeScene("LevelComplete");
             }
         }
@@ -264,11 +264,6 @@ public class Player : MonoBehaviour
         level++;
         float t = Mathf.Pow(xpIncrease, level);
         xpForLevelUp = (int)Mathf.Floor(xpBase * t);
-    }
-
-    public void SavePlayer()
-    {
-        SaveAndLoad.SavePlayer(this);
     }
 
     public void LoadPlayer(SceneData data)

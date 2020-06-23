@@ -7,20 +7,16 @@
 /// Description: Script for the minimap. The minimap rotates and
 /// moves with the player.
 /// 
-/// Minimap.cs contains the following classes (made by me, not
-/// made by the guys of unity):
-/// - 
+/// Minimap.cs contains the following classes:
+/// - NONE
 /// 
 //////////////////////////////////////////////////////////////////
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Minimap : MonoBehaviour
 {
-
-    public Transform player;
+    [SerializeField]
+    private Transform player;
 
     private void LateUpdate()
     {

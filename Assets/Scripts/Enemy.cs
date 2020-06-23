@@ -7,51 +7,64 @@
 /// Description: Script for enemy behavior, such as moving
 /// attacking and enemy death.
 /// 
-/// Player.cs contains the following classes (made by me, not
-/// made by the guys of unity):
-/// - 
+/// Enemy.cs contains the following classes:
+/// - StateSwitcher()
+/// - StateManager()
+/// - TakeDamage()
+/// - Die()
 /// 
 //////////////////////////////////////////////////////////////////
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
+
+[RequireComponent(typeof(NavMeshAgent))]
 
 public class Enemy : MonoBehaviour
 {
+    // Variables that can be changed in the editor
     [Header("Movement")]
-    [Tooltip("Movement speed of the Enemy"), Range(0f, 10f)]
-    public int moveSpeed;
-    public int runSpeed;
+    [SerializeField, Tooltip("Movement speed of the Enemy"), Range(0f, 10f)]
+    private int moveSpeed;
+
+    [SerializeField]
+    private int runSpeed;
 
     [Header("Player Detection")]
-    [Tooltip("The closest the player needs to be from the enemy to be detected.")]
-    public float maxLength;
+    [SerializeField, Tooltip("The closest the player needs to be from the enemy to be detected.")]
+    private float maxLength;
 
-    [Tooltip("The closest the player needs to be from the enemy to be damaged.")]
-    public float minLength;
+    [SerializeField, Tooltip("The closest the player needs to be from the enemy to be damaged.")]
+    private float minLength;
 
-    private GameObject player;
-    private float length;
+    [Header("Health and Damage")]
+    [SerializeField]
+    private int damage = 5;
 
-    public int damage = 5;
+    [SerializeField]
+    private int health = 20;
 
-    public int health = 10;
-
-    public ParticleSystem explosion;
-
-    private bool sawPlayer = false;
-
-    private enum State { Idle, Chasing }
-    private State state;
-
+    [Header("Other")]
+    [SerializeField]
+    private Player player;
     [SerializeField]
     private List<Transform> _wayPoints = new List<Transform>();
 
+    // Variables that cannot be changed in the editor.
+    private float length;
+    private enum State { Idle, Chasing }
+    private State state;
     private NavMeshAgent _agent;
     private int _currentWayPoint = 0;
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+    }
 
     private void Awake()
     {
@@ -61,39 +74,47 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        health += (int)Mathf.Floor(player.GetComponent<Player>().level * 1.5f);
+        if (player == null)
+        {
+            Debug.LogError("There is no player attached to the enemy!");
+        }
+
+        health += (int)Mathf.Floor(player.level * 2);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
 
+        // Getting the length of the vector between the player and the enemy
         Vector3 _diff = transform.position - player.transform.position;
         length = _diff.magnitude;
 
+        StateSwitcher();
+
+        StateManager();
+    }
+
+    private void StateSwitcher()
+    {
         if (length <= maxLength)
         {
-            //sawPlayer = true;
             state = State.Chasing;
         }
         else
         {
             state = State.Idle;
         }
+    }
 
+    private void StateManager()
+    {
         if (state == State.Chasing)
         {
-            //transform.LookAt(player.transform.position);
-
-            //Vector3 _normalDiff = _diff.normalized;
-
-            //transform.position -= _normalDiff * Time.deltaTime * moveSpeed;
-
             _agent.speed = runSpeed;
             _agent.destination = player.transform.position;
         }
-        
+
         if (state == State.Idle)
         {
             _agent.speed = moveSpeed;
@@ -123,7 +144,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
 
-            player.gameObject.GetComponent<Player>().AddXP((int)Random.Range(5, 10));
+            player.AddXP((int)Random.Range(5, 20));
 
             Die();
         }
@@ -131,12 +152,10 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        //Instantiate(explosion, transform.position, transform.rotation);
+        // If this instance dies add one to the total of enemies killed
+        // in the DataHandler. If the level is over it will show the total
+        // number of enemies killed.
+        DataHandler.enemiesKilled += 1;
         Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        
     }
 }
