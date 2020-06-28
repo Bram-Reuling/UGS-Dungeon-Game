@@ -19,20 +19,29 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
 
-    [SerializeField]
-    private Player player;
-    private Slider slider;
+    #region Editor Variable Declarations
 
     [SerializeField]
+    private Player player;
+    [SerializeField]
     private TextMeshProUGUI text;
+
+    #endregion
+
+    #region Non-editor Variable Declarations
+
+    private Slider slider;
+
+    #endregion
+
+    #region Private Methods
 
     private void Awake()
     {
         slider = GetComponent<Slider>();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (player == null)
         {
@@ -40,10 +49,12 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         slider.value = player.Health;
         text.text = player.Health.ToString() + " / " + slider.maxValue + " HP";
     }
+
+    #endregion
+
 }

@@ -17,18 +17,32 @@ using UnityEngine.SceneManagement;
 public class Game : MonoBehaviour
 {
 
+    #region Editor Variable Declarations
+
+    [SerializeField]
+    private Player player;
+    [SerializeField]
+    private SceneLoader sceneLoader;
+
+    #endregion
+
+    #region Non-editor Variable Declarations
+
     private Scene scene;
-    public Player player;
+    static public SceneData dataOfScene;
 
-    public SceneLoader sceneLoader;
+    #endregion
 
-    static public SceneData data;
+    #region Private Methods
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         scene = SceneManager.GetActiveScene();
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void SaveGame()
     {
@@ -37,9 +51,12 @@ public class Game : MonoBehaviour
 
     public void LoadGame()
     {
-        data = SaveAndLoad.LoadGame();
+        dataOfScene = SaveAndLoad.LoadGame();
 
-        DataHandler.data = data;
-        sceneLoader.ChangeScene(data);
+        DataHandler.data = dataOfScene;
+        sceneLoader.ChangeScene(dataOfScene);
     }
+
+    #endregion
+
 }

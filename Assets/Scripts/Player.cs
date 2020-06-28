@@ -18,36 +18,31 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Player : MonoBehaviour
 {
+
+    #region Getters and Setters
 
     public int Health
     {
         get => playerHealth;
     }
 
-    public int Level
-    {
-        get => level;
-    }
+    public int Level { get; private set; } = 0;
 
-    public int XP
-    {
-        get => currentXP;
-    }
+    public int XP { get; private set; } = 0;
 
-    public int XPForLevelUp
-    {
-        get => xpForLevelUp;
-    }
+    public int XPForLevelUp { get; private set; } = 100;
 
     public Vector3 Position
     {
         get => transform.position;
     }
 
-    public static Player GetPlayerInstance() => playerSingleton;
+    #endregion
 
+    #region Editor Variable Declarations
 
     [Header("Player Movement")]
     [SerializeField, Range(0f, 100f)]
@@ -68,8 +63,17 @@ public class Player : MonoBehaviour
 
     [Header("Other")]
 
-    [Tooltip("Player Health in %"), Range(0, 100)]
-    public int playerHealth = 100;
+    [SerializeField, Tooltip("Player Health in %"), Range(0, 100)]
+    private int playerHealth = 100;
+
+    [SerializeField]
+    private SceneLoader sceneLoader;
+    [SerializeField]
+    private Game game;
+
+    #endregion
+
+    #region Non-editor Variable Declarations
 
     private static Player playerSingleton = null;
 
@@ -82,16 +86,13 @@ public class Player : MonoBehaviour
 
     private float collisionTimer;
 
-    public float timeThresholdForDamage = .5f;
+    private readonly float timeThresholdForDamage = .5f;
+    private readonly int xpBase = 100;
+    private readonly float xpIncrease = 1.15f;
 
-    public int currentXP = 0;
-    public int level = 1;
-    public int xpForLevelUp = 100;
-    public int xpBase = 100;
-    public float xpIncrease = 1.15f;
+    #endregion
 
-    public SceneLoader sceneLoader;
-    public Game game;
+    #region Private Methods
 
     private void Awake()
     {
@@ -108,12 +109,13 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
         oldMoveSpeed = moveSpeed;
         mouseSensitivity *= 100;
+
+        rb = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        rb = GetComponent<Rigidbody>();
 
         playerCamera = GameObject.Find("Main Camera").transform;
 
@@ -124,7 +126,7 @@ public class Player : MonoBehaviour
 
     }
 
-    void Update()
+    private void Update()
     {
         // Player and Camera rotation
 
@@ -145,7 +147,7 @@ public class Player : MonoBehaviour
     }
 
     // Used for physics based movement.
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         PlayerRun();
 
@@ -157,7 +159,7 @@ public class Player : MonoBehaviour
         {
             //Debug.Log(hit.transform.tag);
 
-            if (hit.transform.tag == "Finish")
+            if (hit.transform.CompareTag("Finish"))
             {
                 game.SaveGame();
                 Cursor.lockState = CursorLockMode.Confined;
@@ -251,11 +253,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        playerSingleton = null;
+    }
+
+    #endregion
+
+    #region Public Methods
+
     public void AddXP(int _xp)
     {
-        currentXP += _xp;
+        XP += _xp;
 
-        if (currentXP >= xpForLevelUp)
+        if (XP >= XPForLevelUp)
         {
             LevelUp();
         }
@@ -263,22 +274,20 @@ public class Player : MonoBehaviour
 
     public void LevelUp()
     {
-        currentXP -= xpForLevelUp;
-        level++;
-        float t = Mathf.Pow(xpIncrease, level);
-        xpForLevelUp = (int)Mathf.Floor(xpBase * t);
+        XP -= XPForLevelUp;
+        Level++;
+        float t = Mathf.Pow(xpIncrease, Level);
+        XPForLevelUp = (int)Mathf.Floor(xpBase * t);
     }
 
     public void LoadPlayer(SceneData data)
     {
         playerHealth = data.health;
-        currentXP = data.xp;
-        level = data.level;
-        xpForLevelUp = data.xpForLevelUp;
+        XP = data.xp;
+        Level = data.level;
+        XPForLevelUp = data.xpForLevelUp;
     }
 
-    private void OnDestroy()
-    {
-        playerSingleton = null;
-    }
+    #endregion
+
 }

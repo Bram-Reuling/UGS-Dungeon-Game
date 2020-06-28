@@ -14,43 +14,55 @@ using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
+
+    #region Editor Variable Declarations
+
     [SerializeField]
     private GameObject pauseMenu;
-
     [SerializeField]
     private GameObject gameUI;
 
-    private bool gameOnPause = false;
-    private bool buttonPressed = false;
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    #region Non-editor Variable Declarations
+
+    private bool isGamePaused = false;
+    private bool isButtonPressed = false;
+
+    #endregion
+
+    #region Private Methods
+
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !gameOnPause && !buttonPressed)
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGamePaused && !isButtonPressed)
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             pauseMenu.SetActive(true);
             gameUI.SetActive(false);
             Time.timeScale = 0;
-            gameOnPause = true;
-            buttonPressed = true;
+            isGamePaused = true;
+            isButtonPressed = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && gameOnPause && !buttonPressed)
+        if (Input.GetKeyDown(KeyCode.Escape) && isGamePaused && !isButtonPressed)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             pauseMenu.SetActive(false);
             gameUI.SetActive(true);
             Time.timeScale = 1;
-            gameOnPause = false;
-            buttonPressed = true;
+            isGamePaused = false;
+            isButtonPressed = true;
         }
 
         if (!Input.GetKeyDown(KeyCode.Escape))
         {
-            buttonPressed = false;
+            isButtonPressed = false;
         }
     }
+
+    #endregion
+
 }

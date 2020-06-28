@@ -16,6 +16,9 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class SceneData
 {
+
+    #region Variable Declarations
+
     // Player Data
     public int health;
     public int xp;
@@ -25,6 +28,10 @@ public class SceneData
 
     // Other Data
     public string sceneName;
+
+    #endregion
+
+    #region Constructors
 
     public SceneData(Player player, Scene scene)
     {
@@ -42,4 +49,7 @@ public class SceneData
         // Other
         sceneName = scene.name;
     }
+
+    #endregion
+
 }

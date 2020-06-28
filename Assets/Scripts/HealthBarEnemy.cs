@@ -18,12 +18,23 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class HealthBarEnemy : MonoBehaviour
 {
-    [SerializeField]
-    private Enemy enemy;
-    private Slider slider;
+
+    #region Editor Variable Declarations
 
     [SerializeField]
+    private Enemy enemy;
+    [SerializeField]
     private TextMeshProUGUI text;
+
+    #endregion
+
+    #region Non-editor Variable Declarations
+
+    private Slider slider;
+
+    #endregion
+
+    #region Private Methods
 
     private void Awake()
     {
@@ -39,9 +50,12 @@ public class HealthBarEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         slider.value = enemy.Health;
         text.text = enemy.Health.ToString() + " / " + slider.maxValue + " HP";
     }
+
+    #endregion
+
 }

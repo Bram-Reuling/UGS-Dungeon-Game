@@ -19,7 +19,13 @@ using UnityEngine.SceneManagement;
 public static class SaveAndLoad
 {
 
-    public static string fileName = "/DungeonGameData.dgd";
+    #region Variable Declarations
+
+    private static string fileName = "/DungeonGameData.dgd";
+
+    #endregion
+
+    #region Public Methods
 
     public static void SaveGame(Player player, Scene scene)
     {
@@ -78,4 +84,7 @@ public static class SaveAndLoad
             return null;
         }
     }
+
+    #endregion
+
 }

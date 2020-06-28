@@ -14,9 +14,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
+
 public class LoadGameButton : MonoBehaviour
 {
+
+    #region Non-editor Variable Declarations
+
     private Button button;
+
+    #endregion
+
+    #region Private Methods
 
     private void Awake()
     {
@@ -34,4 +43,7 @@ public class LoadGameButton : MonoBehaviour
             button.interactable = true;
         }
     }
+
+    #endregion
+
 }

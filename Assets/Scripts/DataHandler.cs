@@ -18,9 +18,15 @@ using UnityEngine;
 
 public class DataHandler
 {
+
+    #region Variable Declarations
+
     public static SceneData data;
 
     public static int levelPlayer;
     public static int healthPlayer;
     public static int enemiesKilled;
+
+    #endregion
+
 }

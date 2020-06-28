@@ -15,6 +15,8 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
 
+    #region Editor Variable Declarations
+
     [SerializeField]
     private int damage = 10;
     [SerializeField]
@@ -30,13 +32,21 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private AudioSource audioShoot;
 
+    #endregion
+
+    #region Private Methods
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.timeScale != 0 && !audioShoot.isPlaying)
+
+        if (mainCamera != null)
         {
-            Fire();
-            audioShoot.Play();
+            if (Input.GetButtonDown("Fire1") && Time.timeScale != 0 && !audioShoot.isPlaying)
+            {
+                Fire();
+                audioShoot.Play();
+            }
         }
     }
 
@@ -57,4 +67,7 @@ public class Gun : MonoBehaviour
         }
 
     }
+
+    #endregion
+
 }

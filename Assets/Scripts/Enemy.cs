@@ -8,10 +8,10 @@
 /// attacking and enemy death.
 /// 
 /// Enemy.cs contains the following classes:
-/// - StateSwitcher()
-/// - StateManager()
-/// - TakeDamage()
-/// - Die()
+/// - Private StateSwitcher()
+/// - Private StateManager()
+/// - Public TakeDamage()
+/// - Private Die()
 /// 
 //////////////////////////////////////////////////////////////////
 
@@ -23,6 +23,9 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+
+    #region Editor Variable Declarations
+
     // Variables that can be changed in the editor
     [Header("Movement")]
     [SerializeField, Tooltip("Movement speed of the Enemy"), Range(0f, 10f)]
@@ -51,12 +54,20 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private List<Transform> _wayPoints = new List<Transform>();
 
+    #endregion
+
+    #region Non-editor Variable Declarations
+
     // Variables that cannot be changed in the editor.
     private float length;
     private enum State { Idle, Chasing }
     private State state;
-    private NavMeshAgent _agent;
-    private int _currentWayPoint = 0;
+    private NavMeshAgent agent;
+    private int currentWayPoint = 0;
+
+    #endregion
+
+    #region Getters and Setters
 
     public int Health
     {
@@ -66,29 +77,33 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Private Methods
+
     private void Awake()
     {
-        _agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (player == null)
         {
             Debug.LogError("There is no player attached to the enemy!");
         }
 
-        health += (int)Mathf.Floor(player.level * 2);
+        health += player.Level * 2;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
 
         // Getting the length of the vector between the player and the enemy
-        Vector3 _diff = transform.position - player.transform.position;
-        length = _diff.magnitude;
+        Vector3 vectorToPlayerFromEnemy = transform.position - player.transform.position;
+        length = vectorToPlayerFromEnemy.magnitude;
 
         StateSwitcher();
 
@@ -111,35 +126,48 @@ public class Enemy : MonoBehaviour
     {
         if (state == State.Chasing)
         {
-            _agent.speed = runSpeed;
-            _agent.destination = player.transform.position;
+            agent.speed = runSpeed;
+            agent.destination = player.transform.position;
         }
 
         if (state == State.Idle)
         {
-            _agent.speed = moveSpeed;
+            agent.speed = moveSpeed;
 
-            if (_currentWayPoint < _wayPoints.Count)
+            if (currentWayPoint < _wayPoints.Count)
             {
-                if (Vector3.Distance(transform.position, _wayPoints[_currentWayPoint].position) > 1.5f)
+                if (Vector3.Distance(transform.position, _wayPoints[currentWayPoint].position) > 1.5f)
                 {
-                    _agent.destination = _wayPoints[_currentWayPoint].position;
+                    agent.destination = _wayPoints[currentWayPoint].position;
                 }
                 else
                 {
-                    _currentWayPoint++;
+                    currentWayPoint++;
                 }
             }
             else
             {
-                _currentWayPoint = 0;
+                currentWayPoint = 0;
             }
         }
     }
 
-    public void TakeDamage (int amount)
+    private void Die()
     {
-        health -= amount;
+        // If this instance dies add one to the total of enemies killed
+        // in the DataHandler. If the level is over it will show the total
+        // number of enemies killed.
+        DataHandler.enemiesKilled += 1;
+        Destroy(gameObject);
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public void TakeDamage (int amountOfDamage)
+    {
+        health -= amountOfDamage;
 
         if (health <= 0)
         {
@@ -150,12 +178,6 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Die()
-    {
-        // If this instance dies add one to the total of enemies killed
-        // in the DataHandler. If the level is over it will show the total
-        // number of enemies killed.
-        DataHandler.enemiesKilled += 1;
-        Destroy(gameObject);
-    }
+    #endregion
+
 }

@@ -17,6 +17,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+
+    #region Public Methods
+
     public void NewGame(int sceneIndex)
     {
         DataHandler.data = null;
@@ -54,4 +57,7 @@ public class SceneLoader : MonoBehaviour
     {
         Application.Quit();
     }
+
+    #endregion
+
 }

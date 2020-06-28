@@ -18,6 +18,8 @@ using UnityEngine;
 public class RoomCompleteUI : MonoBehaviour
 {
 
+    #region Editor Variable Declarations
+
     [SerializeField]
     private TextMeshProUGUI level;
     [SerializeField]
@@ -25,11 +27,18 @@ public class RoomCompleteUI : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI enemiesKilled;
 
+    #endregion
+
+    #region Private Methods
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         level.text = "Current player level: " + DataHandler.levelPlayer;
         health.text = "Current player health: " + DataHandler.healthPlayer;
         enemiesKilled.text = "Enemies killed: " + DataHandler.enemiesKilled;
     }
+
+    #endregion
+
 }

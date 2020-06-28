@@ -19,24 +19,47 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class XPBar : MonoBehaviour
 {
+
+    #region Editor Variable Declarations
+
     [SerializeField]
     private Player player;
-    private Slider slider;
-
     [SerializeField]
     private TextMeshProUGUI text;
 
+    #endregion
+
+    #region Non-editor Variable Declarations
+
+    private Slider slider;
+
+    #endregion
+
+    #region Private Methods
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         slider = GetComponent<Slider>();
+
+        if (player == null)
+        {
+            Debug.LogError("There is no instance of player connected to XPBar");
+        }
+
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        slider.maxValue = player.XPForLevelUp;
-        slider.value = player.XP;
-        text.text = "Level: "+player.Level;
+        if (player != null)
+        {
+            slider.maxValue = player.XPForLevelUp;
+            slider.value = player.XP;
+            text.text = "Level: " + player.Level;
+        }
     }
+
+    #endregion
+
 }

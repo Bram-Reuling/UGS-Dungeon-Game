@@ -18,14 +18,20 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
 
-    private enum State { Welcome, Goal, WalkAndLook, Run, Shoot, HPAndLevel, Done }
-    private State state;
+    #region Editor Variable Declarations
 
     [SerializeField]
     private TextMeshProUGUI text;
 
     [SerializeField]
     private SceneLoader sceneLoader;
+
+    #endregion
+
+    #region Non-editor Variable Declarations
+
+    private enum State { Welcome, Goal, WalkAndLook, Run, Shoot, HPAndLevel, Done }
+    private State state;
 
     private bool keyIsPressed = false;
 
@@ -37,15 +43,19 @@ public class Tutorial : MonoBehaviour
     private bool hpActive = true;
     private bool doneActive = true;
 
+    #endregion
+
+    #region Private Methods
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         state = State.Welcome;
         Time.timeScale = 0;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         States();
         StateManager();
@@ -167,4 +177,7 @@ public class Tutorial : MonoBehaviour
             text.text = "This was the tutorial! \nPress Enter to continue to the next room.";
         }
     }
+
+    #endregion
+
 }
