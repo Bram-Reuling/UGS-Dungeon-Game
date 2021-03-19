@@ -1,1 +1,1 @@
-UGS GAme
+UGS Game
